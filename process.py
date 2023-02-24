@@ -2,7 +2,7 @@ from booknlp.booknlp import BookNLP
 
 model_params={
 		"pipeline":"entity,quote,supersense,event,coref", 
-		"model":"big"
+		"model":"small"
 	}
 	
 booknlp=BookNLP("en", model_params)
@@ -14,6 +14,6 @@ input_file="input_dir/pg70123.txt"
 output_directory="output_dir/test/"
 
 # File within this directory will be named ${book_id}.entities, ${book_id}.tokens, etc.
-book_id="bartleby"
+book_id="pg70123"
 
 booknlp.process(input_file, output_directory, book_id)
