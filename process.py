@@ -2,7 +2,7 @@ from booknlp.booknlp import BookNLP
 import os
 
 model_params={
-		"pipeline":"entity,quote,supersense,event,coref", 
+		"pipeline":"entity", 
 		"model":"small"
 	}
 	
