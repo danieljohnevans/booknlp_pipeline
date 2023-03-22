@@ -8,22 +8,31 @@ model_params={
 	
 booknlp=BookNLP("en", model_params)
 
-# Input file to process
 
-all_files = os.listdir('input_dir')
-# input_file="input_dir/pg70123.txt"
+all_files = 'input_dir/scwared-14-sample-dataset'
 
-# # Output directory to store resulting files in
-# # File within this directory will be named ${book_id}.entities, ${book_id}.tokens, etc.
 input_dir=[]
 output_directory=[]
 book_id = []
-for i in all_files:
-    input_dir.append("input_dir/" + i)
-    output_directory.append("output_dir/" + i)
-    book_id.append(i.strip(".txt"))
+
+
+for subdir in os.listdir(all_files):
+    d = {}
+    filenames = []
+
+    for filename in os.listdir(os.path.join(all_files, subdir)):
+
+        if filename.endswith('.txt'):
+            with open(os.path.join(all_files, subdir, filename), 'r') as f:
+
+                d.update({os.path.splitext(filename[-7:])[0]: f.read()})
+        
+        input_dir.append(all_files + "/" + subdir +"/"+ filename)
+
+        output_directory.append("output_dir/" + subdir +"|"+ os.path.splitext(filename[-7:])[0])
+        book_id.append(subdir +"|"+ os.path.splitext(filename[-7:])[0])
+
+print(input_dir)
 
 for i in range(len(input_dir)):
     booknlp.process(input_dir[i], output_directory[i], book_id[i])
-
-# booknlp.process(all_files, output_directory, book_id)
